@@ -3,11 +3,11 @@
 using namespace std;
 
 
+//IMPORTANT NOTE: We are assuming all nodes are 1 based.
+//GLOBAL VARS*********
 const int MAX_N = 200005;
 const int LOG = 20;
 vector<vector<int> > tree(MAX_N);
-
-//here we are assuming that all ndoes are 1-based indices
 
 int bl[MAX_N][LOG]; // 2**log ancestor of a given node
 int parent[MAX_N]; //gives the parent of a node
@@ -16,6 +16,8 @@ int d[MAX_N]; //gives the depth of a node
 int tin[MAX_N]; //In times of the DFS
 int tout[MAX_N]; //Out times of the DFS
 int timer = 0;
+//*******************
+
 
 void dfs(int p, int node, int depth) {
     parent[node] = p;
@@ -36,10 +38,9 @@ void build_bl(int n) {
     }
     
     for(int i = 1; i <= n; i++) {
-        bl[i][0] = i;
-        bl[i][1] = parent[i];
+        bl[i][0] = parent[i];
     }
-    for(int j = 2; j < LOG; j++) {
+    for(int j = 1; j < LOG; j++) {
         for(int i = 1; i <= n; i++) {
             if(1 <= bl[i][j - 1] && bl[i][j - 1] <= n) {
                 bl[i][j] = bl[bl[i][j - 1]][j - 1];
