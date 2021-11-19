@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
-using namespace std;
 
 template<typename T>
 struct pt {
@@ -18,7 +17,7 @@ struct pt {
 };
 
 template<typename T>
-ostream& operator<<(ostream& os, const pt<T>& p) {
+std::ostream& operator<<(std::ostream& os, const pt<T>& p) {
     os << "(" << p.x << "," << p.y << ")" << "\n";
     return os;
 } 
@@ -45,6 +44,10 @@ int orient(pt<T> p1, pt<T> p2, pt<T> p3) {
     return 0;
 }
 
+namespace gscan {
+
+}
+
 
 
 
@@ -52,6 +55,6 @@ int main() {
     pt<double> p1{0,0};
     pt<double> p2{1,0};
     pt<double> p3{1,1};
-    cout << orient(p2, p3, p3) << "\n";
-    cout << cross(p1, p1 + p1) << "\n";
+    std::cout << orient(p2, p3, p3) << "\n";
+    std::cout << cross(p1, p1 + p1) << "\n";
 }
