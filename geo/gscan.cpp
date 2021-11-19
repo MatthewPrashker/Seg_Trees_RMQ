@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <assert.h>
 
 template<typename T>
 struct pt {
@@ -8,12 +9,17 @@ struct pt {
     T y;
     pt(): x(T(0)), y(T(0)) {}
     pt(T _x, T _y): x(_x), y(_y) {}
+    pt<T> operator=(const pt<T>& other) {
+        x = other.x;
+        y = other.y;
+        return *this;
+    }
     pt<T> operator+(const pt<T>& other) {
         return pt{x + other.x, y + other.y};
     }
     pt<T> operator-(const pt<T>& other) {
         return pt{x - other.x, y - other.y};
-    }  
+    } 
 };
 
 template<typename T>
@@ -46,6 +52,25 @@ int orient(pt<T> p1, pt<T> p2, pt<T> p3) {
 
 namespace gscan {
 
+    //Return the point with lowest y-coordinate
+    //Break ties with lowest x-coordinate
+    //Point to be used as pivot in Graham Scan
+    template<typename T>
+    pt<T> find_lowest(std::vector<pt<T> >& points) {
+        assert(points.size() > 0);
+        pt<T> lowest = points[0];
+        for(auto it = next(points.begin()); it != points.end(); it++) {
+            if((*it).y < lowest.y) {
+                lowest = *it;
+                continue;
+            }
+            if((*it).x < lowest.x) {
+                lowest = *it;
+            }
+        }
+        return lowest;
+    }
+
 }
 
 
@@ -53,8 +78,16 @@ namespace gscan {
 
 int main() {
     pt<double> p1{0,0};
-    pt<double> p2{1,0};
+    pt<double> p2{1,-1};
     pt<double> p3{1,1};
-    std::cout << orient(p2, p3, p3) << "\n";
-    std::cout << cross(p1, p1 + p1) << "\n";
+
+    //create a vector of points to sort
+    std::vector<pt<double> >points {p1, p2, p3};
+    
+
+
+
+
+    std::cout << gscan::find_lowest(points);
+    
 }
