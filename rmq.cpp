@@ -20,7 +20,7 @@ void buildRMQ(int n, const ll (&A)[MAX_N], ll (&RMQ)[MAX_N][LOG]) {
     }
     
 }
-//find first power of 2 which is greater than or equal to d
+
 int log(int d) {
     int ans = 0;
     for(int i = 0; i < 31; i++) {
