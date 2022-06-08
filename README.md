@@ -1,2 +1,2 @@
 # Advanced_Data_Structures
-Implementations of advanced Data Structures
+Implementations of Segment tree and range based data structures for CP
